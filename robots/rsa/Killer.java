@@ -5,43 +5,52 @@ import robocode.HitWallEvent;
 import robocode.Robot;
 import robocode.ScannedRobotEvent;
 
-/**
- * Created by Meri on 08/06/2016
- */
-public class Killer extends Robot{
-    public Killer() {
+public class Killer extends Robot
+{
+    public Killer()
+    {
+        setAllColors(Properties.COLOR);
     }
 
-    public void run() {
-        while(true) {
-            this.seek();
+    public void run()
+    {
+        while(true)
+        {
+            seek();
         }
     }
 
-    private void seek() {
-        this.turnGunRight(60.0D);
+    private void seek()
+    {
+        turnGunRight(Properties.SEEK_INTERVAL);
     }
 
-    public void onScannedRobot(ScannedRobotEvent e) {
-        this.turnRight(e.getBearing());
-        this.ahead(100.0D);
-        this.fireIfInRange(e.getDistance());
+    public void onScannedRobot(ScannedRobotEvent e)
+    {
+        turnRight(e.getBearing());
+        ahead(Properties.AHEAD_INTERVAL_ON_SCAN);
+        fireIfInRange(e.getDistance());
     }
 
-    private void fireIfInRange(double distance) {
-        if(distance < 100.0D) {
-            this.fire(3.0D);
-        } else {
-            this.fire(1.0D);
+    private void fireIfInRange(double distance)
+    {
+        if(distance < Properties.AHEAD_INTERVAL_ON_SCAN)
+        {
+            fire(Properties.HEAVY_POWER_ATTACK);
         }
-
+        else
+        {
+            fire(Properties.REGULAR_POWER_ATTACK);
+        }
     }
 
-    public void onHitByBullet(HitByBulletEvent e) {
-        this.back(10.0D);
+    public void onHitByBullet(HitByBulletEvent e)
+    {
+        back(Properties.PUSHBACK);
     }
 
-    public void onHitWall(HitWallEvent e) {
-        this.back(20.0D);
+    public void onHitWall(HitWallEvent e)
+    {
+        back(Properties.PUSHBACK);
     }
 }
