@@ -1,4 +1,4 @@
-package rsa;
+package Killer;
 
 import robocode.HitByBulletEvent;
 import robocode.HitWallEvent;
